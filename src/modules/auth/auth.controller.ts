@@ -17,7 +17,7 @@ import {
   SwaggerUserDto,
 } from "src/modules/users/dto/create-user.dto";
 import { Response } from "express";
-import { TOKEN_NAME } from "src/constants/key-decorators";
+import { TOKEN_NAME } from '../../constants/key-decorators';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import {
   LoginDto,
