@@ -1,23 +1,28 @@
 {
   "version": 2,
+  "buildCommand": "yarn build",
+  "installCommand": "yarn install",
   "builds": [
     {
-      "src": "dist/main.js",
-      "use": "@vercel/node"
+      "src": "src/main.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["dist/**"]
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "dist/main.js"
+      "dest": "src/main.ts"
     },
     {
       "src": "/docs(.*)",
-      "dest": "dist/main.js"
+      "dest": "src/main.ts"
     },
     {
       "src": "/(.*)",
-      "dest": "dist/main.js"
+      "dest": "src/main.ts"
     }
   ]
 }
