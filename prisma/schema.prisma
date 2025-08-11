@@ -1,0 +1,353 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model clien {
+  cliente        Int     @id
+  vend           Int?
+  nombre_cliente String? 
+  direccion      String? 
+  c_postal       Int?
+  localidad      String? 
+  depto          Int?
+  telefono       String? 
+  ruc            String? 
+  envio          Int?
+  f_pago         Int?
+  lista          String? 
+  des_fact       Int?
+  desc_rec       Int?
+  tope_cred      Int?
+  cred_usado     Int?
+  siglo_ult_vta  Int?
+  f_ult_vta      Int?
+  observaciones  String? 
+  param1         Int?
+  param2         Int?
+  res_1          Int?
+  res_2          String? 
+  res_3          String? 
+  res_4          String? 
+
+  @@map("clien")
+}
+
+model clientes {
+  clicod    String  @id 
+  clicodbit String?
+  clinom    String? 
+  cliruc    String? 
+  clirazsoc String? 
+  clidir    String? 
+  cliest    Boolean
+
+  @@map("clientes")
+}
+
+model configuraciones {
+  fldname      String  @id 
+  lnglbl       String? 
+  shtlbl       String? 
+  fldtype      Int?
+  tbase        String? 
+  fbase        String? 
+  boundcolumn  Int?
+  columncount  Int?
+  columnwidths String? 
+  orderby      String? 
+  sql          String?
+
+  @@map("configuraciones")
+}
+
+model estados {
+  estcod Int    @id
+  estnom String 
+
+  @@map("estados")
+}
+
+model formatoinformes {
+  nombre         String  @id 
+  id_informe     Int?
+  predeterminado Boolean
+  recordsource   String? 
+  titulo         String? 
+  contador       String? 
+  agrupar1       Boolean
+  agrupar2       Boolean
+  orden1         String? 
+  orden2         String? 
+  btnorden1      Boolean
+  btnorden2      Boolean
+  listacampos    String?
+
+  @@map("formatoinformes")
+}
+
+model id3728365jpdc {
+  id String @id 
+
+  @@map("id3728365jpdc")
+}
+
+model monedas {
+  moncod Int     @id
+  monnom String? 
+  monabr String? 
+
+  @@map("monedas")
+}
+
+model ordenes {
+  ordcod    Int       @id @default(autoincrement())
+  vendcod   Int
+  clicod    String?
+  clidir    String    
+  ordfec    DateTime?
+  ordfecpro DateTime?
+  ordmar    String?   
+  ordequ    String?  
+  ordnumtal String?  
+  ordmat    String?  
+  ordarmpor Int?
+  ordins    Boolean?
+  ordent    Boolean?
+  ordace    Boolean?
+  estcod    Int
+  ordvia    Int?
+  ordnumfac Int?
+  ordnumrem Int?
+  ordretcli Boolean?
+  ordretdec Boolean?
+  ordentven Boolean?
+  ordobs    String?
+  ordcos    Float?
+  ordmon    Float?
+  moncod    Int?
+  pagocod   Int?
+  ordcom    Float?
+  ordrev    Boolean?
+  ordinstec Boolean?
+  ordnuev   String?
+
+  // cliente   clientes? @relation(fields: [clicod], references: [clicod])
+  // estado    estados   @relation(fields: [estcod], references: [estcod])
+  // moneda    monedas?  @relation(fields: [moncod], references: [moncod])
+  // pago      pagos?    @relation(fields: [pagocod], references: [pagocod])
+
+  @@map("ordenes")
+}
+
+model msyscompacterror {
+  errorcode        Int     @id
+  errordescription String?
+  errortable       String? 
+  errorrecid       Bytes?
+
+  // @@id([errorcode, errortable])
+  @@map("msyscompacterror")
+}
+
+model pagos {
+  pagocod Int     @id
+  pagonom String? 
+  pagocom Float?
+
+  @@map("pagos")
+}
+
+model prefijos {
+  precod Int     @id
+  predes String? 
+
+  @@map("prefijos")
+}
+
+model productos {
+  prodcod         String  @id 
+  prodnom         String  
+  tipprodcod      String? 
+  parentproductid String? 
+
+  items items[]
+
+  @@map("productos")
+}
+
+model proveedores {
+  provcod String  @id 
+  provnom String? 
+
+  @@map("proveedores")
+}
+
+model stock {
+  articulo        String  @id 
+  grupo           Int?
+  tipo            Int?
+  nombre_articulo String? 
+  articulo_edit   String? 
+  prov            Int?
+  param1          String? 
+  param2          String? 
+  precio1         Int?
+  precio2         Int?
+  precio3         Int?
+  neto1           String? 
+  neto2           String? 
+  neto3           String? 
+  iva             Int?
+  compmes_u       Int?
+  compmes_v       Int?
+  ventmes_u       Int?
+  ventmes_v       Int?
+  compacu_u       Int?
+  compacu_v       Int?
+  ventacu_u       Int?
+  ventacu_v       Int?
+  siglo_ult_vta   Int?
+  f_ult_vta       Int?
+  siglo_ult_com   Int?
+  f_ult_com       Int?
+  costo_prom      Int?
+  costo_repos     Int?
+  siglo_repos     Int?
+  f_repos         Int?
+  res_1           Int?
+  siglo_uc1       Int?
+  fecha_uc1       Int?
+  cant_uc1        Int?
+  costo_uc1       Int?
+  dto_uc1         Int?
+  prov_uc1        Int?
+  siglo_uc2       Int?
+  fecha_uc2       Int?
+  cant_uc2        Int?
+  costo_uc2       Int?
+  dto_uc2         Int?
+  prov_uc2        Int?
+  siglo_uc3       Int?
+  fecha_uc3       Int?
+  cant_uc3        Int?
+  costo_uc3       Int?
+  dto_uc3         Int?
+  prov_uc3        Int?
+  siglo_uc4       Int?
+  fecha_uc4       Int?
+  cant_uc4        Int?
+  costo_uc4       Int?
+  dto_uc4         Int?
+  prov_uc4        Int?
+  siglo_uv1       Int?
+  fecha_uv1       Int?
+  cant_uv1        Int?
+  precio_uv1      Int?
+
+  @@map("stock")
+}
+
+model tipoproductos {
+  tipprodcod String  @id 
+  tipprodgru Int?
+  tipprodnom String? 
+  tipprodimp Boolean
+
+  @@map("tipoproductos")
+}
+
+model tipousuarios {
+  tipusucod Int     @id
+  tipusunom String? 
+
+  @@map("tipousuarios")
+}
+
+model usuarios {
+  usucod    Int    @id
+  usunom    String 
+  usucla    String 
+  tipusucod Int
+
+  @@map("usuarios")
+}
+
+model vendedores {
+  vendcod Int     @id
+  vendnom String? 
+  vendmai String? 
+  usucod  Int?
+
+  @@map("vendedores")
+}
+
+model historialestados {
+  hiscod Int       @id
+  ordcod Int?
+  estcod Int?
+  usucod Int
+  hisfec DateTime?
+
+  @@map("historialestados")
+}
+
+model ordenesproductos {
+  ordprodcod     Int     @id @default(autoincrement())
+  ordcod         Int
+  prodcod        String
+  ordprodcon     String? 
+  ordprodcan     Int?
+  provcod        String
+  ordprodlle     Boolean
+  ordprodnumfac  Int?
+  ordprodpre     Float?
+  ordprodprereal Float?
+  prodcost       Float
+  prodvent       Float
+  prodgast       Float
+
+  items items[]
+  // orden    ordenes     @relation(fields: [ordcod], references: [ordcod])
+  // producto productos   @relation(fields: [prodcod], references: [prodcod])
+  // proveedor proveedores @relation(fields: [provcod], references: [provcod])
+
+  @@map("ordenesproductos")
+}
+
+model items {
+  itemcod    Int       @id @default(autoincrement())
+  itemven    Float
+  itemcom    Float
+  itemgas    Float
+  itemfec    DateTime  @default(now())
+  itemgar    DateTime?
+  itemest    String  
+  prodcod    String  
+  numserie   String
+  ordprodcod Int? // Cambiado a opcional con el signo ?
+
+  productos        productos         @relation(fields: [prodcod], references: [prodcod], onDelete: Cascade)
+  ordenesproductos ordenesproductos? @relation(fields: [ordprodcod], references: [ordprodcod], onDelete: Cascade)
+
+  @@map("items")
+}
+
+model tipos {
+  tipo        Int
+  grupo       Int
+  nombre_tipo String? 
+
+  @@id([tipo, grupo])
+  @@map("tipos")
+}
