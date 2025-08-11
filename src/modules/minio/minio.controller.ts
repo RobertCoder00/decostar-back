@@ -14,7 +14,7 @@ import { FilesInterceptor } from "@nestjs/platform-express";
 import { MinioService } from "./minio.service";
 import { Public } from "../auth/decorators/public.decorator";
 import { Response } from "express";
-import * as archiver from "archiver";
+import archiver from "archiver";
 import {
   ApiBody,
   ApiOkResponse,
@@ -192,9 +192,7 @@ export class MinioController {
       throw new NotFoundException("No files found");
     }
 
-    const archive = archiver("zip", {
-      zlib: { level: 9 }, 
-    });
+    const archive = archiver("zip", {zlib: { level: 9 }});
 
     archive.on("error", (err) => {
       throw new Error(`Failed to create ZIP: ${err.message}`);

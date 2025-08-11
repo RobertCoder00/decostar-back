@@ -13,6 +13,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private jwtConfiguration: ConfigType<typeof jwtConfig>,
     private authService: AuthService,
   ) {
+    console.log('🚀 JwtStrategy constructor');
+    console.log('🚀 jwtConfiguration:', jwtConfiguration);
+    console.log('🚀 jwtConfiguration.secret:', jwtConfiguration.secret ? 'EXISTS' : 'MISSING');
+    console.log('🚀 jwtConfig.KEY:', jwtConfig.KEY);
+
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: jwtConfiguration.secret,
