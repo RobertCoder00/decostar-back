@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "yarn build",
+  "buildCommand": "prisma generate && yarn build",
   "installCommand": "yarn install",
   "builds": [
     {
       "src": "src/main.ts",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["dist/**"]
+        "includeFiles": ["dist/**", "prisma/**", "node_modules/@prisma/**"]
       }
     }
   ],

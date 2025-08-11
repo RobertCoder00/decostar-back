@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
 "scripts": {
-    "build": "nest build",
+    "build": "prisma generate && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/main",
     "start:dev": "nest start --watch",
@@ -20,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "vercel-build": "yarn build"
+    "postinstall": "prisma generate",
+    "vercel-build": "prisma generate && yarn build"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
