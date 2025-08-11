@@ -5,9 +5,8 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "scripts": {
+"scripts": {
     "build": "nest build",
-    "postbuild": "cp -r src/mail/templates dist/mail/templates",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
