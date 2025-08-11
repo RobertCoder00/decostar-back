@@ -3,41 +3,7 @@ import { AppModule } from "./app.module";
 import { ValidationPipe } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { json, urlencoded } from 'express';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import * as express from 'express';
 
-// Función para crear la aplicación
-async function createApp() {
-  const expressApp = express();
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
-  
-  app.setGlobalPrefix("api");
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-    }),
-  );
-  
-  // Aumentar límites de payload
-  app.use(json({ limit: '50mb' }));
-  app.use(urlencoded({ extended: true, limit: '50mb' }));
-  
-  app.enableCors({
-    origin: process.env.ORIGIN_CORS || "http://localhost:3000",
-  });
-  
-  const config = new DocumentBuilder()
-    .setTitle('API documentation')
-    .setVersion('1.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("docs", app, document);
-  
-  await app.init();
-  return expressApp;
-}
-
-// Para desarrollo local
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix("api");
@@ -51,7 +17,7 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   
   app.enableCors({
-    origin: process.env.ORIGIN_CORS || "http://localhost:3000",
+    origin: process.env.ORIGIN_CORS || "*", // Cambiado para Vercel
   });
   
   const config = new DocumentBuilder()
@@ -61,16 +27,12 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("docs", app, document);
   
-  await app.listen(process.env.PORT || 8000);
+  const port = process.env.PORT || 3000; // Cambiado a 3000
+  await app.listen(port);
 }
 
-// Solo ejecutar bootstrap en desarrollo
-if (process.env.NODE_ENV !== 'production') {
-  bootstrap();
-}
+bootstrap();
 
-// Exportar para Vercel (esto es clave)
-export default createApp();
 
 // import { NestFactory } from "@nestjs/core";
 // import { AppModule } from "./app.module";
