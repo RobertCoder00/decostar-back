@@ -35,27 +35,17 @@ export class AuthService {
   }
 
   // Todo:*************************************************************************
-  // async validateUser(usunom: string, usucla: string) {
-  //   const user = await this.userService.getUserByUsunom(usunom);
-  //   if (!user) throw new UnauthorizedException("User not found!");
-  //   let isPasswordMatch = await compare(usucla, user.usucla);
-  //   if (!isPasswordMatch) isPasswordMatch = usucla === user.usucla;
-  //   if (!isPasswordMatch)
-  //     throw new UnauthorizedException("Invalid credentials");
+  async validateUser(usunom: string, usucla: string) {
+    const user = await this.userService.getUserByUsunom(usunom);
+    if (!user) throw new UnauthorizedException("User not found!");
+    let isPasswordMatch = await compare(usucla, user.usucla);
+    if (!isPasswordMatch) isPasswordMatch = usucla === user.usucla;
+    if (!isPasswordMatch)
+      throw new UnauthorizedException("Invalid credentials");
 
-  //   return { id: user.usucod };
-  // }
-    async validateUser(usunom: string, usucla: string) {
-      const user = await this.userService.getUserByUsunom(usunom);
-      if (!user) throw new UnauthorizedException("User not found!");
-      
-      const isPasswordMatch = await compare(usucla, user.usucla);
-      if (!isPasswordMatch && usucla !== user.usucla) {
-        throw new UnauthorizedException("Invalid credentials");
-      }
-    
-      return user; // ¡Retorna el objeto completo!
-    }
+    return { id: user.usucod };
+  }
+
   // Todo:*************************************************************************
   async signUp(createUserDto: CreateUserDto) {
     const { usucla, usunom } = createUserDto;
