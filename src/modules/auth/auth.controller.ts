@@ -84,12 +84,20 @@ export class AuthController {
     type: SwaggerLoginDto,
     description: "Credenciales para iniciar sesión",
   })
-  async login(@Request() req, @Res({ passthrough: true }) res: Response) {
-    console.log("token", req.user);
-    const { id } = req.user;
-    const token = await this.authService.login(id);
 
-    res.cookie(TOKEN_NAME, token, { httpOnly: true });
-    return { token };
-  }
+  // async login(@Request() req, @Res({ passthrough: true }) res: Response) {
+  //   console.log("token", req.user);
+  //   const { id } = req.user;
+  //   const token = await this.authService.login(id);
+
+  //   res.cookie(TOKEN_NAME, token, { httpOnly: true });
+  //   return { token };
+  // }
+async login(@Request() req, @Res() res: Response) {
+  console.log("User object:", req.user); // Debug: Deberías ver el usuario completo
+  const token = await this.authService.login(req.user.usucod); // Usa usucod
+  res.cookie(TOKEN_NAME, token, { httpOnly: true });
+  return { token };
+}
+
 }

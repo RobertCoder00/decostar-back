@@ -20,7 +20,7 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   
   app.enableCors({
-    origin: process.env.ORIGIN_CORS || true,
+    origin: process.env.ORIGIN_CORS || "https://decostar-five.vercel.app",
     credentials: true,
   });
   
