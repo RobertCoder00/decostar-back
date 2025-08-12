@@ -20,10 +20,11 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   
   app.enableCors({
-    origin: process.env.ORIGIN_CORS || true, // Cambiar para producción
+    origin: process.env.ORIGIN_CORS || true,
     credentials: true,
   });
   
+  // Configuración de Swagger con opciones personalizadas
   const config = new DocumentBuilder()
     .setTitle('DecoStar API')
     .setDescription('API documentation')
@@ -31,10 +32,25 @@ async function bootstrap() {
     .build();
     
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("docs", app, document);
+  
+  // Configuración personalizada de Swagger para producción
+  const swaggerOptions = {
+    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+    customJs: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.js'
+    ],
+    swaggerOptions: {
+      persistAuthorization: true,
+      displayRequestDuration: true,
+    },
+    customfavIcon: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/favicon-32x32.png'
+  };
+  
+  SwaggerModule.setup("docs", app, document, swaggerOptions);
   
   const port = process.env.PORT || 8000;
-  await app.listen(port, '0.0.0.0'); // Importante: bind a 0.0.0.0
+  await app.listen(port, '0.0.0.0');
   
   console.log(`Application running on port ${port}`);
 }
